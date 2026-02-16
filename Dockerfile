@@ -13,6 +13,12 @@ RUN npm install
 # Copy the entire codebase to the working directory
 COPY . /app/
 
+# Change ownership of app directory to node user
+RUN chown -R node:node /app
+
+# Switch to non-root user
+USER node
+
 # Expose the port your container app
 EXPOSE 3000    
 
