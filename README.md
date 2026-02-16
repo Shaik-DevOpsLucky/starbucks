@@ -2,6 +2,7 @@
 
 # Deploy Starbucks Clone Application AWS using DevSecOps Approach
 
+<img width="900" height="618" alt="image" src="https://github.com/user-attachments/assets/30a0ac14-b5c6-4868-b229-900c11ae76a6" />
 
 # **Install AWS CLI**
 ```
