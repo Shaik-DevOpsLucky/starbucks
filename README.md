@@ -73,6 +73,67 @@ curl -sSfL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh | 
 # Deployment Stages:
 <img width="966" alt="Screenshot 2024-09-15 at 7 20 49 AM" src="https://github.com/user-attachments/assets/ddb5e618-79ab-49b3-8f13-b5114824eec3">
 
+# Install sonarqube
+```
+docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+```
+# Install plugins
+```
+Eclipse Temurin installer
+SonarQube Scanner
+NodeJS
+Docker
+Docker Commons
+Docker Pipeline
+Docker API
+docker-build-step
+OWASP Dependency-CheckVersion
+Pipeline: Stage View
+Email Extension Template
+Blue ocean
+```
+
+# In Sonarqube:
+```
+login sonarqube --> goto administration --> security --> users --> update token --> name of token --> create token.
+```
+# credentials setup for sonar and dockerhub
+```
+Goto manage jenkins --> credentials --> type:secrete token --> name:sonar-token --> create
+```
+```
+Goto manage jenkins --> credentials --> type:username and password --> name:dockerhub-username --> password of dockerhub --> description:docker --> create
+```
+# Webhook configuration in sonarqube
+```
+Goto manage admin --> users --> configurations --> webhooks --> create --> name:jenkins --> URL:http://54.146.189.148:8080/sonarqube-webhook/ --> create
+```
+# Tools setup in Jenkins
+```
+1. Install java: name:jdk17 --> Install automatically --> add installer --> adoptium dot net --> jdk-17.0.8.1+1
+2. Install Sonaqube: SonarQube Scanner --> name:sonar-scanner--> keep default as it is
+3. Install nodejs: name:nodejs16 -->version: nodejs 16.20.0
+4. Install Dependency-Check: name:DP-Check --> Install automatically --> Install from github.com.
+5. Install Docker: name:docker --> Install automatically --> Install from dockerhub.com --> version:latest
+```
+
+# Sonarqube configuration in Jenkins system:
+```
+Manage Jenkins --> Systems --> SonarQube installations --> name:soar-scanner --> URL: (provide sonarqube url) http://54.146.189.148:9000 --> Server authentication token: choose the token which we created previously --> apply and save
+```
+# email token:
+```
+goto gmail manager --> search for --> app password --> provide name / jenkins --> create token
+```
+zxhhflppiybstggevnymi
+
+# Setup Email creds in jenkins:
+```
+Goto manage jenkins --> credentials --> type:username and password --> name:enter your email id --> password= password/secretekey of email --> description:mail-creds --> create
+```
+```
+Goto manage jenkins --> systems --> search for email --> Extended E-mail Notification --> SMTP server=smtp.gmail.com --> port=465 --> click on advance --> credentials=mail-cred --> select the checkboxes (Use SSL, Use OAuth 2.0) --> scroll down --> search for Email-notification --> SMTP server=smtp.gmail.com --> click on advances --> select "Use SMTP Authentication" --> User Name=moula.cloud5@gmail.com --> password= enter the previosly generated password --> SMTP port=465 --> select the checkbox "Use SSL" --> select "Test configuration by sending test e-mail" --> enter your email id --> click on Test email --> apply --> before save, goto "default triggers" --> choose (Failure any, Always and Sucess) --> apply and save.
+```
 
 # Jenkins Complete pipeline
 ```
